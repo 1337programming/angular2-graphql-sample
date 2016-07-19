@@ -1,9 +1,11 @@
 var config = module.exports = {};
 var webpack = require('webpack');
+var WebpackBrowserPlugin = require('webpack-browser-plugin');
 var path = require('path');
 var argv = require('yargs').argv;
 
 config.plugins = [];
+config.plugins.push(new WebpackBrowserPlugin());
 var dest;
 if (argv.prod) {
   dest = path.join(__dirname, 'dist');

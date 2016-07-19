@@ -1,26 +1,65 @@
-import Schema from './schema';
+import {TodosSchema} from './todos-schema';
+import {UserSchema} from './todos-schema';
 import {graphql} from 'graphql';
 import bodyParser from 'body-parser';
 import express from 'express';
 
 const {
-  PORT = "3000"
+  PORT = "8080"
 } = process.env;
 
+function AllowCrossDomain (req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:9000');
+  //res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+}
+
 const app = express();
-app.use(express.static('public'));
+//app.use(express.static('public'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
-app.post('/graphql', (req, res) => {
-  const {query, vars} = req.body;
-  graphql(Schema, query, null, vars).then(result => {
-    res.send(result);
-  });
-});
-
-
+app.use(AllowCrossDomain);
 app.listen(PORT, (err, result) => {
   if (err) {
     throw err;
   }
   console.log(`Listening at localhost:${PORT}`);
 });
+app.post('/users', (req, res) => {
+  console.log('GraphQL Time');
+  console.log(req.body);
+  const {query, vars} = req.body;
+  graphql(UserSchema, query, null, vars).then(result => {
+    console.log('Result', result);
+    res.send(result);
+  });
+});
+
+app.post('/graphql', (req, res) => {
+  console.log('Request', req.body);
+  const {query, vars} = req.body;
+  graphql(TodosSchema, query, null, vars).then(result => {
+    console.log(new Date(), result);
+    res.send(result);
+  });
+});
+
+
+app.post('/test', (req, res) => {
+  console.log(req.body.name);
+
+  /*
+  var obj = JSON.parse(req.body);
+  console.log(obj.name);
+  */
+  res.send('Connected');
+});
+
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/index.html')
+});
+
+

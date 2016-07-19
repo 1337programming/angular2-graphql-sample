@@ -61,10 +61,8 @@ const UserMutations = new GraphQLObjectType({
 });
 
 // Schema
-const UserSchema = new GraphQLSchema({
+export const UserSchema = new GraphQLSchema({
   name: 'UserSchema',
   query: UserQuery,
   mutation: UserMutations
 });
-
-export default UserSchema;

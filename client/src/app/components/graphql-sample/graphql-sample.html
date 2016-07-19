@@ -1,1 +1,17 @@
-<p>Hello</p>
+<h1>GraphQL Sample</h1>
+<form>
+    <div>
+        <label>Name</label>
+        <input [(ngModel)]="newItem" name="item">
+    </div>
+    <button (click)="addTodo(newItem)">Add Item</button>
+    <button (click)="getTodos()">Query Todo</button>
+</form>
+<p *ngIf="error">Error: {{error}}</p>
+
+<div>
+    <p>TODO:</p>
+    <ul>
+        <li *ngFor="let todo of todos">{{todo}}</li>
+    </ul>
+</div>

@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/1337programming/angular2-graphql-sample/issues"
   },
-  "homepage": "https://github.com/1337programming/angular2-graphql-sample#readme"
+  "homepage": "https://github.com/1337programming/angular2-graphql-sample#readme",
+  "devDependencies": {
+    "babel": "^6.5.2"
+  }
 }
