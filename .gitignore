@@ -1,0 +1,15 @@
+.pioenvs
+.pub
+packages
+.packages
+pubspec.lock
+.idea
+.swp
+build
+node_modules/
+
+dist/
+.tmp/
+*.js.map
+npm-debug.log
+.DS_Store
