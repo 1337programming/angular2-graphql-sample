@@ -8,17 +8,17 @@ import {
 
 // In memory data store
 const TodoStore = [
-  "Learn some GraphQL",
-  "Build a sample app"
+  'Learn some GraphQL',
+  'Build a sample app'
 ];
 
 // Root level queries
 const TodosQuery = new GraphQLObjectType({
-  name: "TodosQuery",
+  name: 'TodosQuery',
   fields: () => ({
     items: {
       type: new GraphQLList(GraphQLString),
-      description: "List of todo items",
+      description: 'List of todo items',
       resolve() {
         // close and send
         return TodoStore.concat([]);
@@ -33,7 +33,7 @@ const TodosMutations = new GraphQLObjectType({
   fields: () => ({
     addItem: {
       type: GraphQLString,
-      description: "Add a new todo item",
+      description: 'Add a new todo item',
       args: {
         item: {
           type: new GraphQLNonNull(GraphQLString)
@@ -54,7 +54,7 @@ const TodosMutations = new GraphQLObjectType({
 
 // Schema
 export const TodosSchema = new GraphQLSchema({
-  name: "TodosSchema",
+  name: 'TodosSchema',
   query: TodosQuery,
   mutation: TodosMutations
 });

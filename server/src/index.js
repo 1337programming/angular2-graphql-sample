@@ -1,5 +1,6 @@
 import {TodosSchema} from './todos-schema';
-import {UserSchema} from './todos-schema';
+import {UserSchema} from './user-schema';
+import {ProductSchema} from './product-schema';
 import {graphql} from 'graphql';
 import bodyParser from 'body-parser';
 import express from 'express';
@@ -29,7 +30,6 @@ app.listen(PORT, (err, result) => {
   console.log(`Listening at localhost:${PORT}`);
 });
 app.post('/users', (req, res) => {
-  console.log('GraphQL Time');
   console.log(req.body);
   const {query, vars} = req.body;
   graphql(UserSchema, query, null, vars).then(result => {
@@ -38,7 +38,16 @@ app.post('/users', (req, res) => {
   });
 });
 
-app.post('/graphql', (req, res) => {
+app.post('/products', (req, res) => {
+  console.log(req.body);
+  const {query, vars} = req.body;
+  graphql(ProductSchema, query, null, vars).then(result => {
+    console.log('Result', result);
+    res.send(result);
+  });
+});
+
+app.post('/todos', (req, res) => {
   console.log('Request', req.body);
   const {query, vars} = req.body;
   graphql(TodosSchema, query, null, vars).then(result => {

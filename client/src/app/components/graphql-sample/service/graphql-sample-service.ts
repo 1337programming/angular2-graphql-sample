@@ -3,8 +3,8 @@ import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import {Observable} from "rxjs/Rx";
 
 interface Query {
-  body: string,
-  options: RequestOptions
+  body:string,
+  options:RequestOptions
 }
 
 @Injectable()
@@ -14,12 +14,24 @@ export class GraphQLService {
     
   }
   
-  query(query:string, vars:any = {}):Observable<Response> {
-    let {body, options} = GraphQLService.buildQuery(query, vars);
-    return this.http.post('http://localhost:8080/graphql', body, options);
+  public queryTodos(query:string, vars?:any):Observable<Response> {
+    return this.query('todos', query, vars);
   }
   
-  static buildQuery(query:string, vars:any): Query {
+  public queryUsers(query:string, vars?:any):Observable<Response> {
+    return this.query('users', query, vars);
+  }
+  
+  public queryProducts(query:string, vars?:any):Observable<Response> {
+    return this.query('products', query, vars);
+  }
+  
+  protected query(url:string, query:string, vars:any = {}):Observable<Response> {
+    let {body, options} = GraphQLService.buildQuery(query, vars);
+    return this.http.post(`http://localhost:8080/${url}`, body, options);
+  }
+  
+  static buildQuery(query:string, vars:any):Query {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
